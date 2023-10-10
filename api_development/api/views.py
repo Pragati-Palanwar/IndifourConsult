@@ -34,5 +34,7 @@ def index2(request, countryCode):
         return HttpResponse(res)
     return HttpResponse("Not fetched data")
 
-def index3(request):
-    return HttpResponse("xyz")
+def index3(request, temperature):
+    farenheit = (float(temperature) * 1.8)+32
+    return HttpResponse([{'farenheit': str(farenheit)}])
+
