@@ -5,7 +5,7 @@ from django.http import HttpResponse
 import requests
 
 
-def index(request):
+def listofcountries(request):
     r = requests.get('https://api.worldbank.org/v2/countries?format=json', params=request.GET)
     if r.status_code == 200:
         data = r.json()
@@ -18,7 +18,7 @@ def index(request):
         return HttpResponse(res)
     return HttpResponse('Could not save data')
 
-def index2(request, countryCode):
+def populationyear(request, countryCode):
     r = requests.get('https://api.worldbank.org/v2/country/' + countryCode + '/indicator/SP.POP.TOTL?format=json', params=request.GET)
     if r.status_code == 200:
         data = r.json()
@@ -32,9 +32,9 @@ def index2(request, countryCode):
             res.append(dct)
         res.insert(0,{'country': country})
         return HttpResponse(res)
-    return HttpResponse("Not fetched data")
+    return HttpResponse("Could not fetched data")
 
-def index3(request, temperature):
+def tempconvert(request, temperature):
     farenheit = (float(temperature) * 1.8)+32
     return HttpResponse([{'farenheit': str(farenheit)}])
 
